@@ -1,6 +1,6 @@
 #!/bin/bash
 # ---------------------------------------------------------------------------
-# File   : $mailme.sh
+# File   : $logical_barman.sh
 # Ver    : 01.0
 # =====================================================================================
 # Modification history
@@ -11,16 +11,15 @@
 # 01.1    18/08/2017 Georgi Kostov       adding pglogical automation
 # ---------------------------------------------------------------------------
 
-
 STATUS="UNKNOWN"
 #FUNC=$1
 BKPHOST=`hostname`
 MAIL_BODY=`date +"%d/%m/%Y %H:%M:%S"`"\n""---------------------------------------------------""\n"
 SCRIPTSTART=`date +"%Y-%m-%d %H:%M:%S"`
 BCK_LOG=/var/lib/barman/log/bkp_${DBHOST}.log
-MAIL_FROM=barman@ticktech.bg
-#MAIL_TO="gkostov@ticktech.bg victor@ticktech.bg"
-MAIL_TO="db@ticktech.bg"
+MAIL_FROM=barman@xxxxx.bg
+#MAIL_TO="gkostov@xxxxx.bg"
+MAIL_TO="db@xxxxx.bg"
 DBHOST="$BARMAN_SERVER"
 PHASE="$BARMAN_PHASE"
 BKPDIR="$BARMAN_BACKUP_DIR"
@@ -130,7 +129,7 @@ psql -U barman -d admindb  --no-align -t --field-separator ' ' --quiet -c "
     "|while read maindbs;
         do
             echo -e "Copy slot files from $DBHOST local to barman server">>$BCK_LOG
-            rsync -ae ssh postgres@$maindbs:/var/lib/postgresql/9.6/main/pg_replslot/* /var/lib/barman/$DBHOST/slots
+            rsync -haze ssh postgres@$maindbs:/var/lib/postgresql/9.6/main/pg_replslot/* /var/lib/barman/$DBHOST/slots
         done
 }
 
