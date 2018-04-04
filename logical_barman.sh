@@ -72,7 +72,7 @@ fctPhaseChk()
 fctDisableRep()
 {
 psql -U barman -h $DBHOST -d $REPDB  -t -q -AF ' ' -c '\timing off' -c "SELECT sub_name
-FROM pglogical.subscription;
+FROM pglogical.subscription
 ;"|while read dbs; 
 do 
     echo -e "Temporarily disabling Pglogical subscription $dbs">>$BCK_LOG
@@ -92,7 +92,7 @@ done
 fctEnableRep()
 {
  psql -U barman -h $DBHOST -d $REPDB  -t -q -AF ' ' -c '\timing off' -c "SELECT sub_name
-FROM pglogical.subscription;
+FROM pglogical.subscription
 ;"|while read dbs; 
 do
     echo -e "Enabling Pglogical subscription $dbs">>$BCK_LOG
