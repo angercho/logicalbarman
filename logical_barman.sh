@@ -122,7 +122,7 @@ psql -U barman -h $DBHOST -d $REPDB -t -q -AF ' ' -c '\timing off' -c "
     "|while read maindbs;
         do
             echo -e "Copy slot files from $DBHOST local to barman server">>$BCK_LOG
-            rsync -ae ssh postgres@$maindbs:/var/lib/postgresql/10/main/pg_replslot/* /var/lib/barman/$DBHOST/slots/$BCURID
+            rsync -haze ssh postgres@$maindbs:/var/lib/postgresql/10/main/pg_replslot/* /var/lib/barman/$DBHOST/slots/$BCURID
         done
 }
 ## ----------------------
